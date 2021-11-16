@@ -1,21 +1,21 @@
 Objetivo: Analizar el smart contract de Cryptopunks.
-1) Solidity es un lenguaje de programacion orientado a objetos.
-2) "pragma solidity ^0.4.8;" Sirve para identificar la version minima del compilador para que el codigo sea ejecutado correctamente.
-3) Un smart contract se declara como una clase en JAVA pero acá se usa "Contract" y despues el nombre del contrato.
-4) El primer atributo variable tipo string y publica llamada imageHash. Esta variable tiene un valor por defecto, este valor es el hash de la imagen original que contiene a todos los cryptopunks.
-5) Atributo tipo address llamado owner el cual hasta el momento es nulo pero una vez que el smart contract sea desplegado aqui se almacena la direccion del "dueño" o la persona que tiene ciertos privilegios para ejecutar acciones del smart contract.
-6) Muchos de los atributos y funciones que encontramos aqui vienen de un standard llamado ERC-20 que fue publicado en los EIPs (Ethereum Improvement Proposals) https://eips.ethereum.org/EIPS/eip-20
-7) Si seguimos viendo el codigo nos encontramos con variables  como:
-    standard     (la cual tiene por defecto un valor igual a "CryptoPunks")
-    name         (representa el nombre del token)
-    symbols      (representa el symbolo del token)
-    decimals     (representa el dumero de decimales que el token usa)
-    totalsupply  (este total supply es una variable para llevar la cuenta de los assets)
-    nextPunkIndexToAssign  (varibale Custom para el uso de este smart contract)
-    allPunksAssigned       (varibale Custom para el uso de este smart contract)
-    punksRemainingToAssign (varibale Custom para el uso de este smart contract)
-    punkIndexToAddress     (mapa para identificar el dueño del criptopunk)
-    balanceOf              (mapa para llevar el balance de las addresses)
+1) Solidity es un lenguaje de programación orientado a objetos.
+2) "pragma solidity ^0.4.8;" Sirve para identificar la version mínima del compilador para que el código sea ejecutado correctamente.
+3) Un smart contract se declara como una clase en JAVA pero acá se usa "Contract" y después el nombre del contrato.
+4) El primer atributo es una variable tipo string y pública llamada imageHash. Esta variable tiene un valor por defecto, este valor es el hash de la imagen original que contiene a todos los cryptopunks.
+5) El atributo tipo address y llamado owner hasta el momento es nulo pero una vez que el smart contract sea desplegado aquí se almacenará la dirección del "dueño" o la persona que tiene ciertos privilegios para ejecutar acciones del smart contract.
+6) Muchos de los atributos y funciónes que encontramos aquí vienen de un standard llamado ERC-20 que fue publicado en los EIPs (Ethereum Improvement Proposals) https://eips.ethereum.org/EIPS/eip-20
+7) Si seguimos viendo el código nos encontramos con variables  como:
+    standard     (La cual tiene por defecto un valor igual a "CryptoPunks")
+    name         (Representa el nombre del token)
+    symbols      (Representa el symbolo del token)
+    decimals     (Representa el dumero de decimales que el token usa)
+    totalsupply  (Este totalsupply es una variable para llevar la cuenta de los assets)
+    nextPunkIndexToAssign  (Varibale Custom para el uso de este smart contract)
+    allPunksAssigned       (Varibale Custom para el uso de este smart contract)
+    punksRemainingToAssign (Varibale Custom para el uso de este smart contract)
+    punkIndexToAddress     (Mapa para identificar el dueño del criptopunk)
+    balanceOf              (Mapa para llevar el balance de las addresses)
 8) Strucs: Bid y Offer. Los strucs se usan para definir nuevos tipos de datos.
 9) Tenemos otros mapas los cuales son:
     punksOfferedForSale
@@ -30,21 +30,21 @@ Objetivo: Analizar el smart contract de Cryptopunks.
     PunkBidWithdrawn
     PunkBought
     PunkNoLongerForSale
-11) Incialmente los cryptopunks los tenia solamente una persona y esa persona era la encargada de comercializarlos. Despues de que un cryptoPunk cambiara de dueño ahora el dueño podia comercializar su cryptopunk.
-12) Primer metodo: CryptoPunksMarket. Esta funcion es el constructor del smart contract, podemos ver que aqui estan las asignaciones iniciales del contrato inteligente como el dueño (owner), la cantidad maxima de tokens a existir, cuantos tokens disponibles hay, el nombre del token, su simbolo y cuando decimales va a usar.
-13) El constructor tiene una la palabra  es "payable". Esta es una palabra reservada que representa un modificador el cual permite que la funcion pueda enviar y recibir ether. (Blog sobre por qué los constructores deberian usar payable (https://ethereum.stackexchange.com/questions/41342/what-is-the-significance-of-making-constructor-payable)
-14) Segundo metodo: "setInitialOwner". recibe 2 argumentos (un address y un entero). El proposito de ese metodo es asignarle un dueño a un cryptopunk. Cuando se ejecuta esta funcion se valida la direccion de quien halla llamado a la funcion sea el dueño del contrato (msg.sender==owner), despues verifica si todos los cryptopunks no han sido entregados, despues mira si el index del siguiente cryptopunk no supere el maximo numero de existentes.
-15) Se verifica que la dirección del nuevo dueño del cryptopunk no sea igual que la anterior. Si la direccion del dueño actual del nft no es la 0x00 se procede a descontar de su balance un uno de lo contrario solamente se resta uno a punksRemainingToAssign. para finalizar se actualiza el mapa con la direccino del nuevo dueño en el index de nft entregado, se le suma uno a su balance y se emite el evento Assign
+11) Incialmente los cryptopunks los tenia solamente una persona y esa persona era la encargada de comercializarlos. Después de que un cryptoPunk cambiara de dueño ahora el dueño podia comercializar su cryptopunk.
+12) Primer método: CryptoPunksMarket. Esta función es el constructor del smart contract, podemos ver que aquí estan las asignaciones iniciales del contrato inteligente como el dueño (owner), la cantidad máxima de tokens a existir, cuantos tokens disponibles hay, el nombre del token, su símbolo y cuantos decimales va a usar.
+13) El constructor tiene una la palabra  es "payable". Esta es una palabra reservada que representa un modificador el cual permite que la función pueda enviar y recibir ether. (Blog sobre por qué los constructores deberian usar payable (https://ethereum.stackexchange.com/questions/41342/what-is-the-significance-of-making-constructor-payable)
+14) Segundo método: "setInitialOwner". recibe 2 argumentos (un address y un entero). El propósito de ese método es asignarle un dueño a un cryptopunk. Cuando se ejecuta esta función se valida la direccion de quien halla llamado a la función sea el dueño del contrato (msg.sender==owner), después verifica si todos los cryptopunks no han sido entregados, después mira si el index del siguiente cryptopunk no supere el máximo número de existentes.
+15) Se verifica que la dirección del nuevo dueño del cryptopunk no sea igual que la anterior. Si la dirección del dueño actual del nft no es la 0x00 se procede a descontar de su balance un uno de lo contrario solamente se resta uno a punksRemainingToAssign. para finalizar se actualiza el mapa con la direccino del nuevo dueño en el index de nft entregado, se le suma uno a su balance y se emite el evento Assign
 16) ###En esta parte hay que saber algo, cuando inicializamos un mapa donde el value es un address, el valor por defecto de la address es 0x00
-17) La siguiente funcion que nos encontramos es "setInitialOwners" recibe 2 arrays, uno de direcciones y otro de enteros
-18) Las direcciones representan los nuevos dueños y los enteros los indices de los nft. notemos que esta funcion solamente la puede ejecutar el creador del nft
-19) La siguiente funcion es "allInitialOwnersAssigned" la cual solamente la puede ejecutar el dueño del smartcontract, y cambia de valor a verdadero la funcion allPunksAssigned. esto producira que algunos metodos del smart contract no se puedan ejecutar.
-20) Otra funcion es "getPunk", esta puede ser ejecutada por cualquier usuario sin importar que no sea el dueño, esta funcion loque hace es asignarle un nft a quien la halla llamado siempre y cuando halla nft disponibles. actualiza los mapas, el balance, y emite un evento llamado Assign.
-21) El metodo "transferPunk" verifica que no todos los punks ya hayan sido asignados, quien haya llamado el metodo sea el dueño del nft, que el index dado no sea mayor al numero de existentes. tambien se verifica si el nft esté en venta (usando el mapa de ofertas)
+17) La siguiente función que nos encontramos es "setInitialOwners" recibe 2 arrays, uno de direcciones y otro de enteros
+18) Las direcciones representan los nuevos dueños y los enteros los indices de los nft. notemos que esta función solamente la puede ejecutar el creador del nft
+19) La siguiente función es "allInitialOwnersAssigned" la cual solamente la puede ejecutar el dueño del smartcontract, y cambia de valor a verdadero la función allPunksAssigned. esto producirá que algunos métodos del smart contract no se puedan ejecutar.
+20) Otra función es "getPunk", esta puede ser ejecutada por cualquier usuario sin importar que no sea el dueño, esta función loque hace es asignarle un nft a quien la halla llamado siempre y cuando halla nft disponibles. actualiza los mapas, el balance, y emite un evento llamado Assign.
+21) El método "transferPunk" verifica que no todos los punks ya hayan sido asignados, quien haya llamado el método sea el dueño del nft, que el index dado no sea mayor al número de existentes. también se verifica si el nft esté en venta (usando el mapa de ofertas)
 22) Se actualiza el dueño del nft, se acutaliza el balance del viejo y nuevo dueño. se emiten los efentos de Transfer y PunkTransfer. por ultima verfica que el nuevo dueño haya hecho una bid para que el nuevo dueño pueda recuperar el eth que mando al hacer la bid y por ultimo invalidar esa bid.
-23) El metodo "punkNoLongerForSale" actualiza el estado de la oferta de un cryptopunk a falso
-24) El metodo "offerPunkForSale" actualiza el estado de la oferta de un cryptopunk a verdadero, pone el valor de este y el comprador puede ser la addres 0x0 (cualquiera)
-25) offerPunkForSaleToAddress hace lo mismo que "offerPunkForSale" pero solamente lo oferta a una direccion especifica, es decir que esa direccion solo puede obtener ese nft
-26) el metodo buyPunk puede ser ejecutado cuando los nft ya sean todo asignados, antes no. tambien puede ser llamada por cualquier persona, se mira que el nft tenga una oferta con isForSale = true, que la persona que haya llamado la funcion tambien halla mandado suficiente ethers, mira que quien halla llamado la funcion tambien sea quien halla sido definido para comprar ese nft. is todo esta ok se acutalizan los balances y propitarios del nft. se emiten eventos y por ultima verfica que el nuevo dueño haya hecho una bid para que el nuevo dueño pueda recuperar el eth que mando al hacer la bid y por ultimo invalidar esa bid.
-27) el methodo withdraw  puede ser ejecutado por cualquiera, cuando allPunksAssigned sea true y le devuelve el ether que la perosna halla enviado y esten en pendingwithdraws.
-28) la funcion "enterBidForPunk" agrega una bid a cierto cryptopunk. cuando una bid supera a otra por el valor de ehter enviado, el dueño anterior puede recuperar su dinero ya que lo que el habia apostado se alamacena en el mapa de pendingWithdrawals
+23) El método "punkNoLongerForSale" actualiza el estado de la oferta de un cryptopunk a falso
+24) El método "offerPunkForSale" actualiza el estado de la oferta de un cryptopunk a verdadero, pone el valor de este y el comprador puede ser la addres 0x0 (cualquiera)
+25) OfferPunkForSaleToAddress hace lo mismo que "offerPunkForSale" pero solamente lo oferta a una dirección especifica, es decir que esa dirección solo puede obtener ese nft
+26) El método buyPunk puede ser ejecutado cuando los nft ya sean todo asignados, antes no. también puede ser llamada por cualquier persona, se mira que el nft tenga una oferta con isForSale = true, que la persona que haya llamado la función también halla mandado suficiente ethers, mira que quien halla llamado la función también sea quien halla sido definido para comprar ese nft. is todo esta ok se acutalizan los balances y propitarios del nft. se emiten eventos y por ultima verfica que el nuevo dueño haya hecho una bid para que el nuevo dueño pueda recuperar el eth que mando al hacer la bid y por ultimo invalidar esa bid.
+27) El método withdraw  puede ser ejecutado por cualquiera, cuando allPunksAssigned sea true y le devuelve el ether que la perosna halla enviado y esten en pendingwithdraws.
+28) La función "enterBidForPunk" agrega una bid a cierto cryptopunk. cuando una bid supera a otra por el valor de ehter enviado, el dueño anterior puede recuperar su dinero ya que lo que el habia apostado se alamacena en el mapa de pendingWithdrawals
